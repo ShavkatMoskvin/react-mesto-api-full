@@ -1,0 +1,16 @@
+.login-form__text {
+    color: white;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+@media (max-width: 700px) {
+    .login-form__text {
+        margin-top: 20px;
+    }
+}

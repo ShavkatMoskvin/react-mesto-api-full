@@ -1,0 +1,8 @@
+.popup__form-error-name{
+    top: 135px;
+}
+@media screen and (max-width: 700px){
+    .popup__form-error-name{
+        top: 145px;
+    }
+}

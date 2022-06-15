@@ -1,0 +1,14 @@
+
+.login-form{
+    margin: 23.75px auto 0 auto;
+    padding-top:23.75px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 358px;
+}
+@media (max-width: 700px) {
+    .login-form{
+        padding-top: 1.75px;
+    }
+}

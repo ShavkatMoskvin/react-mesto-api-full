@@ -1,0 +1,9 @@
+.profile__title-container{
+    display: inline-flex;
+    align-items: center;
+}
+@media screen and (max-width: 700px) {
+    .profile__title-container{
+        margin: 22.25px 0px 0px 0px;
+    }
+}
