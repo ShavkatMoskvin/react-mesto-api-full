@@ -44,7 +44,7 @@ module.exports.getUsers = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password, token,
+    name, about, avatar, email, password,
   } = req.body;
 
   userModel.findOne({ email })
@@ -59,11 +59,21 @@ module.exports.createUser = (req, res, next) => {
       name, about, avatar, email, password: hash,
     }))
     // eslint-disable-next-line no-unused-vars
-    .then((user) => res.status(200).send({
-      data: {
-        name, about, avatar, email, token,
-      },
-    }))
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        // eslint-disable-next-line no-undef
+        NODE_ENV === 'production' ? JWT_SECRET : 'secret',
+        { expiresIn: '7d' },
+      );
+
+      res.status(200).send({
+        token: `${token}`,
+        data: {
+          name, about, avatar, email, token,
+        },
+      });
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));

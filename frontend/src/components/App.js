@@ -141,7 +141,7 @@ function App() {
       .then((res) => {
         setStatus(true);
         setInfoTooltip(true);
-        console.log(res.token)
+        console.log(res.data.token)
         localStorage.setItem('jwt', res.token);
       })
       .catch((err) => {
@@ -158,6 +158,7 @@ function App() {
         setUserEmail(email);
         history.push('/')
         localStorage.setItem('jwt', res.token);
+        console.log(`token: ${res.token}`)
       })
       .catch((err) => {
         setInfoTooltip(true);
@@ -169,7 +170,7 @@ function App() {
     const token = localStorage.getItem('jwt');
     api.validityToken(token)
       .then((res) => {
-        console.log(res); 
+        console.log(res, 1223); 
         setLoggedIn(true);
         if (res) {
           setUserEmail(res.email)

@@ -39,7 +39,7 @@ class Api {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
-        "Authorization" : `Bearer ${token}`
+        "Authorization" : `Bearer ${localStorage.getItem("jwt")}`
       }
     })
       .then(this._handleOriginalResponse)
@@ -49,7 +49,7 @@ class Api {
     return fetch(`${this._address}/cards/likes/${id}`, {
       method: 'PUT',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       }
     }).then(this._handleOriginalResponse)
   }
@@ -58,7 +58,7 @@ class Api {
     return fetch(`${this._address}/cards/likes/${id}`, {
       method: 'DELETE',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       }
     }).then(this._handleOriginalResponse)
   }
@@ -67,7 +67,7 @@ class Api {
     return fetch(`${this._address}/users/me`, {
       method: 'GET',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
         "Content-Type": "application/json; charset=utf-8"
       }
     }).then(this._handleOriginalResponse)
@@ -77,7 +77,7 @@ class Api {
     return fetch(`${this._address}/users/me`, {
       method: 'PATCH',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
         "Content-type": "application/json",
       },
       body: JSON.stringify({
@@ -91,7 +91,7 @@ class Api {
     return fetch(`${this._address}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
@@ -105,7 +105,7 @@ class Api {
   getCards() {
     return fetch(`${this._address}/cards`, {
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     }).then(this._handleOriginalResponse);
   }
@@ -114,7 +114,7 @@ class Api {
     return fetch(`${this._address}/cards`, {
       method: "POST",
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
         "Content-type": "application/json",
       },
       body: JSON.stringify({
