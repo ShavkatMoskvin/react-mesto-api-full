@@ -33,6 +33,7 @@ function App() {
     if (isLoggedIn) {
       api.getUserInfo()
         .then((user) => {
+          console.log(user)
           setCurrentUser(user);
         })
         .catch((error) => {
@@ -66,7 +67,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
     if (isLiked) {
       api.dislikeCard(card._id).then((newCard) => {
@@ -141,7 +142,6 @@ function App() {
       .then((res) => {
         setStatus(true);
         setInfoTooltip(true);
-        console.log(res.data.token)
         localStorage.setItem('jwt', res.token);
       })
       .catch((err) => {
@@ -170,7 +170,6 @@ function App() {
     const token = localStorage.getItem('jwt');
     api.validityToken(token)
       .then((res) => {
-        console.log(res, 1223); 
         setLoggedIn(true);
         if (res) {
           setUserEmail(res.email)

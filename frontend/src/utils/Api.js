@@ -38,8 +38,9 @@ class Api {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization" : `Bearer ${localStorage.getItem("jwt")}`
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       }
     })
       .then(this._handleOriginalResponse)
@@ -148,5 +149,4 @@ const api = new Api({
   token: `Bearer ${token}`,
 });
 
-console.log(token);
 export default api

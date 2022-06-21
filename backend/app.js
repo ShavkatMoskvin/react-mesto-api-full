@@ -16,6 +16,7 @@ app.use(cors({
     'https://api.spanish.students.nomoredomains.monster',
     'http://localhost:3000',
     'http://localhost:3001',
+    '127.0.0.1',
   ],
   credentials: true,
 }));
@@ -50,7 +51,7 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
 });
 

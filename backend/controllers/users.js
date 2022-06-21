@@ -44,43 +44,36 @@ module.exports.getUsers = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name,
+    about,
+    avatar,
+    email,
+    password,
   } = req.body;
 
   userModel.findOne({ email })
-    .then((user) => {
-      if (user) {
-        throw new ConflictError('Пользователь с данным email уже сущуствует');
+    .then((mail) => {
+      if (mail) {
+        throw new ConflictError('Пользователь с таким email уже существует.');
       } else {
-        return bcrypt.hash(password, 10);
+        bcrypt.hash(password, 10)
+          .then((hash) => userModel.create({
+            name,
+            about,
+            avatar,
+            email,
+            password: hash,
+          }))
+          .then((user) => res.status(200).send(user))
+          .catch((err) => {
+            if (err.name === 'ValidationError') {
+              throw new BadRequestError('Переданы некорректные данные при создании пользователя.');
+            }
+          })
+          .catch(next);
       }
     })
-    .then((hash) => userModel.create({
-      name, about, avatar, email, password: hash,
-    }))
-    // eslint-disable-next-line no-unused-vars
-    .then((user) => {
-      const token = jwt.sign(
-        { _id: user._id },
-        // eslint-disable-next-line no-undef
-        NODE_ENV === 'production' ? JWT_SECRET : 'secret',
-        { expiresIn: '7d' },
-      );
-
-      res.status(200).send({
-        token: `${token}`,
-        data: {
-          name, about, avatar, email, token,
-        },
-      });
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequestError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 module.exports.updateUserInfo = (req, res, next) => {
@@ -127,12 +120,7 @@ module.exports.login = (req, res, next) => {
         { expiresIn: '7d' },
       );
 
-      res
-        .cookie('jwt', token, {
-          httpOnly: true,
-          maxAge: 3600000 * 24 * 7,
-        })
-        .send({ message: 'Успешный вход', token });
+      res.send({ message: 'Успешный вход', token });
     })
     .catch(() => {
       next(new UnauthorizedError('Неправильная почта или пароль'));
