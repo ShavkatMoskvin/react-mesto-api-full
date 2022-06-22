@@ -145,7 +145,7 @@ class Api {
 }
 
 const api = new Api({
-  address: "http://localhost:3001",
+  address: "http://api.moskvin.nomoreparties.sbs",
   token: `Bearer ${token}`,
 });
 

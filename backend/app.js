@@ -10,10 +10,10 @@ app.use(express.json());
 
 app.use(cors({
   origin: [
-    'http://spanish.students.nomoredomains.monster',
-    'https://spanish.students.nomoredomains.monster',
-    'http://api.spanish.students.nomoredomains.monster',
-    'https://api.spanish.students.nomoredomains.monster',
+    'http://moskvin.nomoreparties.sbs',
+    'https://moskvin.nomoreparties.sbs',
+    'http://api.moskvin.nomoreparties.sbs',
+    'https://api.moskvin.nomoreparties.sbs',
     'http://localhost:3000',
     'http://localhost:3001',
     '127.0.0.1',
