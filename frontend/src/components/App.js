@@ -154,10 +154,10 @@ function App() {
   const login = (email, password) => {
     api.authorization(password, email)
       .then((res) => {
+        localStorage.setItem('jwt', res.token);
         setLoggedIn(true);
         setUserEmail(email);
         history.push('/')
-        localStorage.setItem('jwt', res.token);
         console.log(`token: ${res.token}`)
       })
       .catch((err) => {
@@ -189,7 +189,8 @@ function App() {
 
   React.useEffect(() => {
     checkToken();
-  }, [isLoggedIn])
+    console.log(1)
+  }, [isLoggedIn, ])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -230,7 +231,7 @@ function App() {
         </Route>
 
         <Route path=''>
-          {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/sign-up" />}
+          {isLoggedIn ? <Redirect to="/sign-up" /> : <Redirect to="/" />}
         </Route>
 
       </Switch>

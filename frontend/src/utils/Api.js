@@ -145,7 +145,7 @@ class Api {
 }
 
 const api = new Api({
-  address: "http://api.moskvin.nomoreparties.sbs",
+  address: "https://api.moskvin.nomoreparties.sbs",
   token: `Bearer ${token}`,
 });
 
